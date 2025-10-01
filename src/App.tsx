@@ -227,7 +227,7 @@ function App() {
         {/* Ultra-Modern Sidebar */}
         <aside className="relative overflow-hidden bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-6 lg:p-8 space-y-6 lg:space-y-8 lg:overflow-y-auto lg:w-96 w-full lg:h-full border-b lg:border-b-0 lg:border-r border-white/20 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)] lg:flex-shrink-0">
           {/* Animated Background */}
-          <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-1/4 -left-4 w-20 h-20 bg-gradient-to-br from-blue-400/5 to-purple-400/5 rounded-full blur-2xl animate-pulse delay-500"></div>
             <div className="absolute bottom-1/4 -right-4 w-16 h-16 bg-gradient-to-br from-indigo-400/5 to-cyan-400/5 rounded-full blur-xl animate-pulse delay-1500"></div>
           </div>
