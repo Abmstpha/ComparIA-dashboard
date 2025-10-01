@@ -52,7 +52,7 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
         data,
         lineStyle: {
           color: modernColors[index % modernColors.length],
-          width: 3,
+          width: 4,
           shadowColor: 'rgba(0, 0, 0, 0.1)',
           shadowBlur: 4,
           shadowOffsetY: 2
@@ -65,7 +65,7 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
           shadowBlur: 6
         },
         symbol: 'circle',
-        symbolSize: 4,
+        symbolSize: 6,
         connectNulls: false
       }
     })
@@ -124,10 +124,10 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
         type: 'scroll'
       },
       grid: {
-        left: '10%',
-        right: '10%',
-        bottom: '15%',
-        top: '20%',
+        left: '8%',
+        right: '8%',
+        bottom: '12%',
+        top: '15%',
         containLabel: true
       },
       xAxis: {
@@ -206,7 +206,7 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
   }, [])
 
   return (
-    <div ref={chartRef} className="w-full h-80" />
+    <div ref={chartRef} className="w-full h-96" />
   )
 }
 
