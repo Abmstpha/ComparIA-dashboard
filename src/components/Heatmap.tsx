@@ -78,7 +78,7 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
         height: '70%',
         top: '15%',
         left: '15%',
-        right: '15%'
+        right: '20%'
       },
       xAxis: {
         type: 'category',
@@ -128,7 +128,7 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
         max,
         calculable: true,
         orient: 'vertical',
-        right: '3%',
+        right: '6%',
         top: 'center',
         inRange: {
           color: [

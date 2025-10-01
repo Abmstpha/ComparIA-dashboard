@@ -144,6 +144,7 @@ function App() {
   }
 
   const handleGoHome = () => {
+    // Reset state to home
     setState(prev => ({
       ...prev,
       filters: {
@@ -153,6 +154,9 @@ function App() {
         drilldownPrompt: null
       }
     }))
+    
+    // Navigate to root URL
+    window.location.href = '/ComparIA-dashboard/'
   }
 
   // Debug current state
