@@ -196,26 +196,6 @@ const GlobalCharts = ({
         ))}
       </div>
 
-      {/* Model Performance Charts - All 3 Key Metrics */}
-      <div className="space-y-6">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-          Model Performance Averages
-        </h2>
-        {keyMetrics.map(metric => (
-          <div key={`averages-${metric}`} className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-              Model Performance Averages - {METRIC_LABELS[metric]}
-            </h3>
-            <ModelLineChart
-              longData={filteredData}
-              models={filteredModels}
-              prompts={prompts}
-              selectedMetric={metric}
-              selectedModel="ALL"
-            />
-          </div>
-        ))}
-      </div>
 
 
       {/* Model Performance by Size Groups - All 3 Key Metrics */}
