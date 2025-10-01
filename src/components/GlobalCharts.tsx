@@ -144,50 +144,89 @@ const GlobalCharts = ({
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
-        <h2 className="text-xl font-semibold text-green-900 dark:text-green-100 mb-1">
-          {getViewTitle()}
-        </h2>
-        <p className="text-green-700 dark:text-green-300 text-sm">
-          {getViewDescription()}
-        </p>
+    <div className="space-y-8">
+      {/* Modern Header */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20 p-8 rounded-2xl border border-blue-100 dark:border-blue-800/30 shadow-lg">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 dark:from-blue-400/5 dark:to-purple-400/5"></div>
+        <div className="relative">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+              {getViewTitle()}
+            </h2>
+          </div>
+          <p className="text-blue-700 dark:text-blue-300 text-base font-medium">
+            {getViewDescription()}
+          </p>
+        </div>
       </div>
 
-      {/* KPI Cards */}
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-          Key Performance Indicators - {getViewTitle()}
-        </h3>
+      {/* Modern KPI Cards */}
+      <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-xl">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center">
+            <span className="text-white text-sm font-bold">📊</span>
+          </div>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+            Performance Overview
+          </h3>
+        </div>
         <KpiCards data={filteredData} />
       </div>
 
-      {/* Performance Heatmaps - All 3 Key Metrics with Grouped Prompts */}
-      <div className="space-y-6">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-          Performance Heatmaps by Prompt Groups
-        </h2>
-        {keyMetrics.map(metric => (
-          <div key={`heatmap-${metric}`} className="space-y-4">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-              {METRIC_LABELS[metric]} Heatmaps
-            </h3>
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+      {/* Modern Performance Heatmaps */}
+      <div className="space-y-8">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center shadow-lg">
+            <span className="text-white text-lg">🔥</span>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              Performance Heatmaps
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400">Visual patterns across prompt categories</p>
+          </div>
+        </div>
+        
+        {keyMetrics.map((metric, metricIndex) => (
+          <div key={`heatmap-${metric}`} className="space-y-6">
+            <div className="flex items-center gap-3">
+              <div className={`w-6 h-6 rounded-lg ${
+                metricIndex === 0 ? 'bg-gradient-to-r from-emerald-500 to-teal-500' :
+                metricIndex === 1 ? 'bg-gradient-to-r from-blue-500 to-cyan-500' :
+                'bg-gradient-to-r from-purple-500 to-pink-500'
+              }`}></div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                {METRIC_LABELS[metric]} Analysis
+              </h3>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {promptGroups.map((group, groupIndex) => (
-                <div key={`heatmap-${metric}-group-${groupIndex}`} className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                  <h4 className="text-md font-medium text-gray-900 dark:text-gray-100 mb-1">
-                    {group.label}
-                  </h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
-                    {group.description}
-                  </p>
-                  <Heatmap
-                    longData={filteredData}
-                    models={filteredModels}
-                    prompts={group.prompts}
-                    selectedMetric={metric}
-                  />
+                <div key={`heatmap-${metric}-group-${groupIndex}`} className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        {group.label}
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {group.description}
+                      </p>
+                    </div>
+                    <div className={`w-3 h-3 rounded-full ${
+                      metricIndex === 0 ? 'bg-emerald-400' :
+                      metricIndex === 1 ? 'bg-blue-400' : 'bg-purple-400'
+                    } opacity-60`}></div>
+                  </div>
+                  
+                  <div className="rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
+                    <Heatmap
+                      longData={filteredData}
+                      models={filteredModels}
+                      prompts={group.prompts}
+                      selectedMetric={metric}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -197,32 +236,60 @@ const GlobalCharts = ({
 
 
 
-      {/* Model Performance by Size Groups - All 3 Key Metrics */}
-      <div className="space-y-6">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-          Model Performance by Size Categories
-        </h2>
-        {keyMetrics.map(metric => (
-          <div key={`model-groups-${metric}`} className="space-y-4">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-              {METRIC_LABELS[metric]} by Model Size
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      {/* Modern Model Performance by Size */}
+      <div className="space-y-8">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 bg-gradient-to-r from-violet-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+            <span className="text-white text-lg">🏆</span>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              Model Size Categories
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400">Performance comparison by model complexity</p>
+          </div>
+        </div>
+        
+        {keyMetrics.map((metric, metricIndex) => (
+          <div key={`model-groups-${metric}`} className="space-y-6">
+            <div className="flex items-center gap-3">
+              <div className={`w-6 h-6 rounded-lg ${
+                metricIndex === 0 ? 'bg-gradient-to-r from-emerald-500 to-teal-500' :
+                metricIndex === 1 ? 'bg-gradient-to-r from-blue-500 to-cyan-500' :
+                'bg-gradient-to-r from-purple-500 to-pink-500'
+              }`}></div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                {METRIC_LABELS[metric]} by Model Size
+              </h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {modelGroups.map((group, groupIndex) => (
-                <div key={`model-group-${metric}-${groupIndex}`} className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                  <h4 className="text-md font-medium text-gray-900 dark:text-gray-100 mb-1">
-                    {group.label}
-                  </h4>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
-                    {group.description}
-                  </p>
-                  <ModelLineChart
-                    longData={filteredData}
-                    models={group.models}
-                    prompts={prompts}
-                    selectedMetric={metric}
-                    selectedModel="ALL"
-                  />
+                <div key={`model-group-${metric}-${groupIndex}`} className="group bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-800 dark:to-gray-900/50 p-6 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`w-4 h-4 rounded-full ${
+                      groupIndex === 0 ? 'bg-green-400' :
+                      groupIndex === 1 ? 'bg-yellow-400' : 'bg-red-400'
+                    }`}></div>
+                    <div className="flex-1">
+                      <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
+                        {group.label}
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {group.description}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="rounded-xl overflow-hidden bg-white/50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700">
+                    <ModelLineChart
+                      longData={filteredData}
+                      models={group.models}
+                      prompts={prompts}
+                      selectedMetric={metric}
+                      selectedModel="ALL"
+                    />
+                  </div>
                 </div>
               ))}
             </div>
