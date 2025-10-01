@@ -4,7 +4,6 @@ import KpiCards from './KpiCards'
 import Heatmap from './Heatmap'
 import ModelLineChart from './ModelLineChart'
 import PromptLineChart from './PromptLineChart'
-import LongTable from './LongTable'
 
 interface GlobalChartsProps {
   longData: LongRow[]
@@ -264,16 +263,6 @@ const GlobalCharts = ({
         ))}
       </div>
 
-      {/* Data Tables */}
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-          Data Tables
-          Detailed Data View
-        </h3>
-        <div className="max-h-96 overflow-auto">
-          <LongTable data={filteredData} />
-        </div>
-      </div>
 
       {/* Summary Stats */}
       {viewMode === 'subset' && selectedModels.length > 1 && (
