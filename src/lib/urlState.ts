@@ -12,7 +12,10 @@ export function encodeUrlState(filters: FilterState): string {
     params.set('prompt', filters.selectedPrompt)
   }
   
-  params.set('metric', filters.selectedMetric)
+  // Only add metric to URL if it's not the default
+  if (filters.selectedMetric !== 'quality') {
+    params.set('metric', filters.selectedMetric)
+  }
   
   // New model selection system
   if (filters.modelSelection.type !== 'all') {
