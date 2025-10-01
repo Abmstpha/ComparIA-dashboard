@@ -25,6 +25,42 @@ const GlobalCharts = ({
 }: GlobalChartsProps) => {
   // Key metrics to show in charts - all displayed simultaneously
   const keyMetrics: MetricName[] = ['quality', 'latency_s', 'energy_wh']
+  
+  // Group prompts by difficulty/category levels
+  const groupPromptsByCategory = (prompts: PromptId[]) => {
+    const groups: { label: string; description: string; prompts: PromptId[] }[] = [
+      {
+        label: "Easy factual & rewriting (1-10)",
+        description: "Basic factual questions and simple rewriting tasks",
+        prompts: prompts.slice(0, 10)
+      },
+      {
+        label: "Reasoning & quantitative (11-15)", 
+        description: "Logical reasoning and quantitative analysis",
+        prompts: prompts.slice(10, 15)
+      },
+      {
+        label: "Programming & debugging (16-20)",
+        description: "Code generation and debugging tasks", 
+        prompts: prompts.slice(15, 20)
+      },
+      {
+        label: "Harder knowledge & reasoning (21-25)",
+        description: "Complex knowledge application and reasoning",
+        prompts: prompts.slice(20, 25)
+      },
+      {
+        label: "Advanced / creative & multi-step (26-30)",
+        description: "Creative tasks and multi-step problem solving",
+        prompts: prompts.slice(25, 30)
+      }
+    ]
+    
+    // Filter out empty groups
+    return groups.filter(group => group.prompts.length > 0)
+  }
+  
+  const promptGroups = groupPromptsByCategory(prompts)
   // Filter data based on view mode and selected models
   const filteredData = (() => {
     // For subset view with specific models selected
@@ -82,22 +118,34 @@ const GlobalCharts = ({
         <KpiCards data={filteredData} />
       </div>
 
-      {/* Performance Heatmaps - All 3 Key Metrics */}
+      {/* Performance Heatmaps - All 3 Key Metrics with Grouped Prompts */}
       <div className="space-y-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-          Performance Heatmaps
+          Performance Heatmaps by Prompt Groups
         </h2>
         {keyMetrics.map(metric => (
-          <div key={`heatmap-${metric}`} className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-              {METRIC_LABELS[metric]} Heatmap
+          <div key={`heatmap-${metric}`} className="space-y-4">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+              {METRIC_LABELS[metric]} Heatmaps
             </h3>
-            <Heatmap
-              longData={filteredData}
-              models={filteredModels}
-              prompts={prompts}
-              selectedMetric={metric}
-            />
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+              {promptGroups.map((group, groupIndex) => (
+                <div key={`heatmap-${metric}-group-${groupIndex}`} className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                  <h4 className="text-md font-medium text-gray-900 dark:text-gray-100 mb-1">
+                    {group.label}
+                  </h4>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+                    {group.description}
+                  </p>
+                  <Heatmap
+                    longData={filteredData}
+                    models={filteredModels}
+                    prompts={group.prompts}
+                    selectedMetric={metric}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
@@ -123,23 +171,35 @@ const GlobalCharts = ({
         ))}
       </div>
 
-      {/* Per-Prompt Performance Trends - All 3 Key Metrics */}
+      {/* Per-Prompt Performance Trends - All 3 Key Metrics with Grouped Prompts */}
       <div className="space-y-6">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-          Per-Prompt Performance Trends
+          Per-Prompt Performance Trends by Groups
         </h2>
         {keyMetrics.map(metric => (
-          <div key={`trends-${metric}`} className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
-              Per-Prompt Performance Trends - {METRIC_LABELS[metric]}
+          <div key={`trends-${metric}`} className="space-y-4">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+              {METRIC_LABELS[metric]} Trends by Prompt Groups
             </h3>
-            <PromptLineChart
-              longData={filteredData}
-              models={filteredModels}
-              prompts={prompts}
-              selectedMetric={metric}
-              selectedModel="ALL"
-            />
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+              {promptGroups.map((group, groupIndex) => (
+                <div key={`trends-${metric}-group-${groupIndex}`} className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                  <h4 className="text-md font-medium text-gray-900 dark:text-gray-100 mb-1">
+                    {group.label}
+                  </h4>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+                    {group.description}
+                  </p>
+                  <PromptLineChart
+                    longData={filteredData}
+                    models={filteredModels}
+                    prompts={group.prompts}
+                    selectedMetric={metric}
+                    selectedModel="ALL"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
