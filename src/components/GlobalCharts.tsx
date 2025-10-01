@@ -4,6 +4,7 @@ import KpiCards from './KpiCards'
 import Heatmap from './Heatmap'
 import ModelLineChart from './ModelLineChart'
 import PromptLineChart from './PromptLineChart'
+import CorrelationCharts from './CorrelationCharts'
 import LongTable from './LongTable'
 
 interface GlobalChartsProps {
@@ -216,6 +217,12 @@ const GlobalCharts = ({
           </div>
         ))}
       </div>
+
+      {/* Correlation Analysis Charts */}
+      <CorrelationCharts
+        longData={filteredData}
+        models={filteredModels}
+      />
 
       {/* Model Performance by Size Groups - All 3 Key Metrics */}
       <div className="space-y-6">
