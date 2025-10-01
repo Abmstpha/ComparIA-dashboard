@@ -2,7 +2,8 @@ import Papa from 'papaparse'
 import type { MatrixRow } from '../types'
 
 export async function loadCSVData(): Promise<MatrixRow[]> {
-  const response = await fetch('/results.csv')
+  // Use relative path that works with Vite's base configuration
+  const response = await fetch('./results.csv')
   
   if (!response.ok) {
     throw new Error(`Failed to load CSV: ${response.status}`)
