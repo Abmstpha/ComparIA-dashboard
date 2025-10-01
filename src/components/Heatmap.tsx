@@ -139,7 +139,7 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
         text: ['High', 'Low'],
         textStyle: {
           fontSize: 12,
-          color: '#374151',
+          color: '#64748b',
           fontWeight: 600
         }
       },
