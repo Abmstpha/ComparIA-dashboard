@@ -209,7 +209,7 @@ function App() {
         <aside className="sidebar p-6 space-y-6 overflow-y-auto scrollbar-thin">
           <div className="space-y-4">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Loading data from <code>results.csv</code> - 4 AI models across 30 prompts with 6 KPI metrics.
+              KPI metrics from 6 AI models across 30 prompts
             </p>
           </div>
           
