@@ -164,7 +164,7 @@ function App() {
             </p>
             <div className="flex items-center gap-4 mt-2">
               <span className="text-xs text-gray-500 dark:text-gray-400">
-                Created by <span className="font-medium text-gray-700 dark:text-gray-300">Abmstpha</span>
+                Created by <span className="font-medium text-gray-700 dark:text-gray-300">Abdellahi El Moustapha</span>
               </span>
               <div className="flex items-center gap-2">
                 <a 
