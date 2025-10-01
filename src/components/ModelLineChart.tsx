@@ -3,7 +3,6 @@ import * as echarts from 'echarts'
 import type { LongRow, MetricName, ModelId, PromptId } from '../types'
 import { METRIC_LABELS } from '../types'
 import { generateChartColors } from '../lib/palette'
-import { exportChartAsPNG } from '../lib/export'
 
 interface ModelLineChartProps {
   longData: LongRow[]
@@ -127,34 +126,16 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
   useEffect(() => {
     return () => {
       if (chartInstance.current) {
-        chartInstance.current.dispose()
         chartInstance.current = null
       }
     }
   }, [])
 
-  const handleExport = () => {
-    exportChartAsPNG('model-line-chart', `model_line_${selectedMetric}.png`)
-  }
-
   return (
-    <div className="chart-container">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold">Model Performance</h3>
-        <button
-          onClick={handleExport}
-          className="btn-outline text-sm"
-          title="Export as PNG"
-        >
-          📥 Export
-        </button>
-      </div>
-      <div
-        id="model-line-chart"
-        ref={chartRef}
-        className="w-full h-80"
-      />
-    </div>
+    <div
+      ref={chartRef}
+      className="w-full h-[80vh]"
+    />
   )
 }
 

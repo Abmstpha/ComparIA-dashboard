@@ -3,7 +3,6 @@ import * as echarts from 'echarts'
 import type { LongRow, MetricName, ModelId, PromptId } from '../types'
 import { METRIC_LABELS } from '../types'
 import { getMetricValues, getMinMax } from '../lib/stats'
-import { exportChartAsPNG } from '../lib/export'
 
 interface HeatmapProps {
   longData: LongRow[]
@@ -132,34 +131,16 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
   useEffect(() => {
     return () => {
       if (chartInstance.current) {
-        chartInstance.current.dispose()
         chartInstance.current = null
       }
     }
   }, [])
 
-  const handleExport = () => {
-    exportChartAsPNG('heatmap-chart', `heatmap_${selectedMetric}.png`)
-  }
-
   return (
-    <div className="chart-container">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold">Heatmap</h3>
-        <button
-          onClick={handleExport}
-          className="btn-outline text-sm"
-          title="Export as PNG"
-        >
-          📥 Export
-        </button>
-      </div>
-      <div
-        id="heatmap-chart"
-        ref={chartRef}
-        className="w-full h-80"
-      />
-    </div>
+    <div
+      ref={chartRef}
+      className="w-full h-96"
+    />
   )
 }
 

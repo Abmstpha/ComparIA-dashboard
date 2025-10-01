@@ -143,30 +143,8 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
     }
   }, [])
 
-  const handleExport = () => {
-    if (chartInstance.current) {
-      const url = chartInstance.current.getDataURL({
-        type: 'png',
-        backgroundColor: '#fff'
-      })
-      const link = document.createElement('a')
-      link.download = `${selectedMetric}_per_prompt_trends.png`
-      link.href = url
-      link.click()
-    }
-  }
-
   return (
-    <div className="relative">
-      <button
-        onClick={handleExport}
-        className="absolute top-2 right-2 z-10 btn-outline text-xs px-2 py-1"
-        title="Export as PNG"
-      >
-        📊 Export
-      </button>
-      <div ref={chartRef} className="w-full h-80" />
-    </div>
+    <div ref={chartRef} className="w-full h-80" />
   )
 }
 
