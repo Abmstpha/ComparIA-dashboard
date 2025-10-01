@@ -5,7 +5,7 @@ export type MetricName =
   | 'latency_s'
   | 'energy_wh'
   | 'co2_g'
-  | 'led_hours'
+  | 'led_minutes'
   | 'onlinevideo_min'
 
 export interface LongRow {
@@ -85,7 +85,7 @@ export const METRIC_LABELS: Record<MetricName, string> = {
   latency_s: 'Latency (s)',
   energy_wh: 'Energy (Wh)',
   co2_g: 'CO₂ (g)',
-  led_hours: 'LED Hours',
+  led_minutes: 'LED Bulb (min)',
   onlinevideo_min: 'Online Video (min)',
 }
 
@@ -94,7 +94,7 @@ export const METRIC_UNITS: Record<MetricName, string> = {
   latency_s: 's',
   energy_wh: 'Wh',
   co2_g: 'g',
-  led_hours: 'hours',
+  led_minutes: 'min',
   onlinevideo_min: 'min',
 }
 
@@ -104,4 +104,4 @@ export const DEFAULT_FACTORS: Factors = {
   onlineVideoWhPerMin: 0.9,
 }
 
-export const DERIVED_METRICS: MetricName[] = ['co2_g', 'led_hours', 'onlinevideo_min']
+export const DERIVED_METRICS: MetricName[] = ['co2_g', 'led_minutes', 'onlinevideo_min']
