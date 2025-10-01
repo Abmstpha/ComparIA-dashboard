@@ -144,24 +144,48 @@ const GlobalCharts = ({
   }
 
   return (
-    <div className="space-y-8">
-      {/* Modern Header */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20 p-8 rounded-2xl border border-blue-100 dark:border-blue-800/30 shadow-lg">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 dark:from-blue-400/5 dark:to-purple-400/5"></div>
-        <div className="relative">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+    <div className="space-y-10">
+      {/* Ultra-Modern Header with Neumorphism */}
+      <div className="group relative overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50/30 dark:from-slate-900 dark:via-slate-800/50 dark:to-blue-900/20 p-10 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] border border-white/20 dark:border-white/10 backdrop-blur-xl">
+        {/* Animated Background Orbs */}
+        <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-indigo-400/15 to-cyan-400/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        
+        {/* Floating Particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400/30 rounded-full animate-bounce delay-300"></div>
+          <div className="absolute top-3/4 right-1/3 w-1.5 h-1.5 bg-purple-400/40 rounded-full animate-bounce delay-700"></div>
+          <div className="absolute top-1/2 right-1/4 w-1 h-1 bg-indigo-400/50 rounded-full animate-bounce delay-1000"></div>
+        </div>
+        
+        <div className="relative z-10">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="relative">
+              <div className="w-4 h-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full shadow-lg"></div>
+              <div className="absolute inset-0 w-4 h-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-ping opacity-20"></div>
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-black bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 dark:from-slate-200 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent tracking-tight">
               {getViewTitle()}
             </h2>
           </div>
-          <p className="text-blue-700 dark:text-blue-300 text-base font-medium">
+          <p className="text-slate-600 dark:text-slate-300 text-lg font-medium leading-relaxed">
             {getViewDescription()}
           </p>
+          
+          {/* Modern Status Indicator */}
+          <div className="flex items-center gap-2 mt-6">
+            <div className="flex items-center gap-2 px-4 py-2 bg-green-100/80 dark:bg-green-900/30 rounded-full border border-green-200/50 dark:border-green-700/50">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-sm font-semibold text-green-700 dark:text-green-300">Live Data</span>
+            </div>
+            <div className="px-4 py-2 bg-blue-100/80 dark:bg-blue-900/30 rounded-full border border-blue-200/50 dark:border-blue-700/50">
+              <span className="text-sm font-semibold text-blue-700 dark:text-blue-300">{filteredModels.length} Models</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Modern KPI Cards */}
+      {/* Ultra-Modern KPI Cards with Neumorphism */}
       <div className="bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm p-6 rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-xl">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center">
