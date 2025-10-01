@@ -45,17 +45,29 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
         text: `${METRIC_LABELS[selectedMetric]} Heatmap`,
         left: 'center',
         textStyle: {
-          fontSize: 16,
-          fontWeight: 'bold'
+          fontSize: 18,
+          fontWeight: 700,
+          color: '#1e293b'
         }
       },
       tooltip: {
         position: 'top',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        borderColor: '#e2e8f0',
+        borderWidth: 1,
+        borderRadius: 12,
+        padding: [12, 16],
+        textStyle: {
+          color: '#1e293b',
+          fontSize: 13,
+          fontWeight: 500
+        },
+        extraCssText: 'box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); backdrop-filter: blur(8px);',
         formatter: (params: any) => {
           const [promptIdx, modelIdx, value] = params.data
           const model = models[modelIdx]
           const prompt = prompts[promptIdx]
-          return `${model}<br/>${prompt}<br/>${METRIC_LABELS[selectedMetric]}: ${value.toFixed(3)}`
+          return `<div style="font-weight: 600; margin-bottom: 6px; color: #3b82f6;">${model}</div><div style="margin-bottom: 4px; color: #64748b;">${prompt}</div><div style="font-weight: 600; color: #1e293b;">${METRIC_LABELS[selectedMetric]}: <span style="color: #059669;">${value.toFixed(3)}</span></div>`
         }
       },
       grid: {
@@ -68,21 +80,43 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
         type: 'category',
         data: prompts,
         splitArea: {
-          show: true
+          show: true,
+          areaStyle: {
+            color: ['rgba(248, 250, 252, 0.8)', 'rgba(241, 245, 249, 0.8)']
+          }
         },
         axisLabel: {
           rotate: 45,
-          fontSize: 10
+          fontSize: 11,
+          color: '#64748b',
+          fontWeight: 500
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#e2e8f0',
+            width: 2
+          }
         }
       },
       yAxis: {
         type: 'category',
         data: models,
         splitArea: {
-          show: true
+          show: true,
+          areaStyle: {
+            color: ['rgba(248, 250, 252, 0.8)', 'rgba(241, 245, 249, 0.8)']
+          }
         },
         axisLabel: {
-          fontSize: 10
+          fontSize: 11,
+          color: '#64748b',
+          fontWeight: 500
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#e2e8f0',
+            width: 2
+          }
         }
       },
       visualMap: {
@@ -90,14 +124,19 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
         max,
         calculable: true,
         orient: 'vertical',
-        right: '2%',
+        right: '3%',
         top: 'center',
         inRange: {
-          color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffcc', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+          color: [
+            '#1e40af', '#3b82f6', '#60a5fa', '#93c5fd', '#dbeafe',
+            '#fef3c7', '#fcd34d', '#f59e0b', '#d97706', '#b45309', '#92400e'
+          ]
         },
         text: ['High', 'Low'],
         textStyle: {
-          fontSize: 10
+          fontSize: 12,
+          color: '#374151',
+          fontWeight: 600
         }
       },
       series: [{
@@ -107,10 +146,18 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
         label: {
           show: false
         },
+        itemStyle: {
+          borderColor: '#ffffff',
+          borderWidth: 2,
+          borderRadius: 4
+        },
         emphasis: {
           itemStyle: {
-            shadowBlur: 10,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
+            shadowBlur: 15,
+            shadowColor: 'rgba(59, 130, 246, 0.4)',
+            borderColor: '#3b82f6',
+            borderWidth: 3,
+            borderRadius: 6
           }
         }
       }]

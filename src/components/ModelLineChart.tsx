@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react'
 import * as echarts from 'echarts'
 import type { LongRow, MetricName, ModelId, PromptId } from '../types'
 import { METRIC_LABELS } from '../types'
-import { generateChartColors } from '../lib/palette'
 
 interface ModelLineChartProps {
   longData: LongRow[]
@@ -34,7 +33,16 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
 
     // Filter models based on selection
     const displayModels = selectedModel === 'ALL' ? models : [selectedModel]
-    const colors = generateChartColors(displayModels.length)
+    
+    // Modern gradient colors
+    const modernColors = [
+      { type: 'linear' as const, x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#3b82f6' }, { offset: 1, color: '#1d4ed8' }] },
+      { type: 'linear' as const, x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#8b5cf6' }, { offset: 1, color: '#7c3aed' }] },
+      { type: 'linear' as const, x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#10b981' }, { offset: 1, color: '#059669' }] },
+      { type: 'linear' as const, x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#f59e0b' }, { offset: 1, color: '#d97706' }] },
+      { type: 'linear' as const, x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#ef4444' }, { offset: 1, color: '#dc2626' }] },
+      { type: 'linear' as const, x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#06b6d4' }, { offset: 1, color: '#0891b2' }] }
+    ]
 
     // Calculate model averages for the chart
     const modelAverages = displayModels.map(model => {
@@ -52,7 +60,11 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
         value: item.average,
         name: item.model,
         itemStyle: {
-          color: colors[index % colors.length]
+          color: modernColors[index % modernColors.length],
+          borderRadius: [4, 4, 0, 0],
+          shadowBlur: 8,
+          shadowColor: 'rgba(0, 0, 0, 0.1)',
+          shadowOffsetY: 2
         }
       })),
       barWidth: '60%',
@@ -68,16 +80,28 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
         text: `${METRIC_LABELS[selectedMetric]} by Model`,
         left: 'center',
         textStyle: {
-          fontSize: 16,
-          fontWeight: 'bold'
+          fontSize: 20,
+          fontWeight: 700,
+          color: '#1e293b'
         }
       },
       tooltip: {
         trigger: 'item',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        borderColor: '#e2e8f0',
+        borderWidth: 1,
+        borderRadius: 12,
+        padding: [12, 16],
+        textStyle: {
+          color: '#1e293b',
+          fontSize: 13,
+          fontWeight: 500
+        },
+        extraCssText: 'box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); backdrop-filter: blur(8px);',
         formatter: (params: any) => {
           const modelName = params.name
           const value = params.value
-          return `<strong>${modelName}</strong><br/>${METRIC_LABELS[selectedMetric]}: ${value !== null ? value.toFixed(3) : 'N/A'}`
+          return `<div style="font-weight: 600; margin-bottom: 6px; color: #3b82f6;">${modelName}</div><div style="font-weight: 600; color: #1e293b;">${METRIC_LABELS[selectedMetric]}: <span style="color: #059669;">${value !== null ? value.toFixed(3) : 'N/A'}</span></div>`
         }
       },
       legend: {
@@ -96,16 +120,50 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
         data: displayModels,
         axisLabel: {
           rotate: 45,
-          fontSize: 10
+          fontSize: 12,
+          color: '#64748b',
+          fontWeight: 500
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#e2e8f0',
+            width: 2
+          }
+        },
+        axisTick: {
+          lineStyle: {
+            color: '#e2e8f0'
+          }
         }
       },
       yAxis: {
         type: 'value',
         name: METRIC_LABELS[selectedMetric],
         nameLocation: 'middle',
-        nameGap: 40,
+        nameGap: 50,
+        nameTextStyle: {
+          fontSize: 14,
+          color: '#374151',
+          fontWeight: 600
+        },
         axisLabel: {
+          fontSize: 11,
+          color: '#64748b',
+          fontWeight: 500,
           formatter: (value: number) => value.toFixed(3)
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#e2e8f0',
+            width: 2
+          }
+        },
+        splitLine: {
+          lineStyle: {
+            color: '#f1f5f9',
+            width: 1,
+            type: 'dashed'
+          }
         }
       },
       series
