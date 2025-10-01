@@ -27,7 +27,11 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
 
     // Get data for heatmap
     const values = getMetricValues(longData, selectedMetric, models, prompts)
-    const { min, max } = getMinMax(values)
+    const { min: dataMin, max: dataMax } = getMinMax(values)
+    
+    // Use fixed scale for quality metrics (0-5), dynamic scale for others
+    const min = selectedMetric === 'quality' ? 0 : dataMin
+    const max = selectedMetric === 'quality' ? 5 : dataMax
 
     // Prepare data for ECharts
     const data: Array<[number, number, number]> = []
