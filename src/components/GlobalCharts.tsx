@@ -19,7 +19,7 @@ const GlobalCharts = ({
   longData,
   models,
   prompts,
-  selectedMetric,
+  selectedMetric: _selectedMetric,
   viewMode,
   selectedModels
 }: GlobalChartsProps) => {

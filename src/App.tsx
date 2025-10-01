@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import type { AppState, FilterState, MatrixRow, ModelSelection, ViewMode } from './types'
+import type { AppState, MatrixRow, ModelSelection, ViewMode } from './types'
 import { matrixToLong, getUniqueModels, getUniquePrompts, getUniqueMetrics } from './lib/reshape'
 import { decodeUrlState, updateUrlState } from './lib/urlState'
 import { loadCSVData } from './lib/csvLoader'
