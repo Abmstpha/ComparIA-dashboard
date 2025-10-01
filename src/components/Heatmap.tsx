@@ -77,7 +77,7 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
       grid: {
         height: '70%',
         top: '15%',
-        left: '15%',
+        left: '25%',
         right: '20%'
       },
       xAxis: {
@@ -114,7 +114,9 @@ const Heatmap = ({ longData, models, prompts, selectedMetric }: HeatmapProps) =>
         axisLabel: {
           fontSize: 11,
           color: '#64748b',
-          fontWeight: 500
+          fontWeight: 500,
+          width: 80,
+          overflow: 'truncate'
         },
         axisLine: {
           lineStyle: {
