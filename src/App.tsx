@@ -143,6 +143,18 @@ function App() {
     }))
   }
 
+  const handleGoHome = () => {
+    setState(prev => ({
+      ...prev,
+      filters: {
+        ...prev.filters,
+        modelSelection: { type: 'all', models: [] },
+        viewMode: 'global',
+        drilldownPrompt: null
+      }
+    }))
+  }
+
   // Debug current state
   console.log('App render - Current state:', {
     viewMode: state.filters.viewMode,
@@ -168,7 +180,10 @@ function App() {
                 <div className="w-3 h-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full shadow-lg"></div>
                 <div className="absolute inset-0 w-3 h-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full animate-ping opacity-30"></div>
               </div>
-              <h1 className="text-2xl lg:text-4xl font-black bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 dark:from-slate-200 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent tracking-tight">
+              <h1 
+                onClick={handleGoHome}
+                className="text-2xl lg:text-4xl font-black bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 dark:from-slate-200 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent tracking-tight cursor-pointer hover:scale-105 transition-transform duration-300"
+              >
                 ComparIA Dashboard
               </h1>
             </div>
