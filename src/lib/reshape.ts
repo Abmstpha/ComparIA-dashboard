@@ -53,7 +53,7 @@ export function addDerivedMetrics(
     }
     
     // Track existing derived metrics
-    if (['co2_g', 'led_hours', 'onlinevideo_min'].includes(row.metric)) {
+    if (['co2_g', 'led_minutes', 'onlinevideo_min'].includes(row.metric)) {
       existingMetrics.add(`${key}:${row.metric}`)
     }
   })
@@ -68,8 +68,8 @@ export function addDerivedMetrics(
         value: (energyWh / 1000) * factors.gridIntensityGCO2PerKwh
       },
       {
-        metric: 'led_hours',
-        value: energyWh / factors.ledBulbWatts
+        metric: 'led_minutes',
+        value: (energyWh / factors.ledBulbWatts) * 60
       },
       {
         metric: 'onlinevideo_min',

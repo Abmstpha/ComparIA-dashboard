@@ -78,7 +78,7 @@ export function decodeUrlState(
     'latency_s',
     'energy_wh',
     'co2_g',
-    'led_hours',
+    'led_minutes',
     'onlinevideo_min'
   ]
   

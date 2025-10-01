@@ -1,11 +1,11 @@
 import type { MetricName, ParsedMetricLabel } from '../types'
 
-const SUPPORTED_METRICS: MetricName[] = [
+const EXPECTED_METRICS: MetricName[] = [
   'quality',
   'latency_s',
   'energy_wh',
   'co2_g',
-  'led_hours',
+  'led_minutes',
   'onlinevideo_min'
 ]
 
@@ -17,7 +17,7 @@ export function parseMetricLabel(metricLabel: string): ParsedMetricLabel | null 
   }
 
   // Try to match any known metric at the END of the string
-  for (const metric of SUPPORTED_METRICS) {
+  for (const metric of EXPECTED_METRICS) {
     const metricSuffix = `_${metric}`
     
     if (trimmed.endsWith(metricSuffix)) {
@@ -58,5 +58,5 @@ export function normalizePromptId(prompt: string): string {
 
 export function validateMetricName(metric: string): MetricName | null {
   const normalized = metric.toLowerCase().trim()
-  return SUPPORTED_METRICS.find(m => m.toLowerCase() === normalized) || null
+  return EXPECTED_METRICS.find((m: MetricName) => m.toLowerCase() === normalized) || null
 }
