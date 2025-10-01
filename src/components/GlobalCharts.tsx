@@ -61,6 +61,52 @@ const GlobalCharts = ({
   }
   
   const promptGroups = groupPromptsByCategory(prompts)
+  
+  // Group models by size categories
+  const groupModelsBySize = (models: ModelId[]) => {
+    const groups: { label: string; description: string; models: ModelId[] }[] = [
+      {
+        label: "Small Models",
+        description: "Meta LLaMA 3.1 8B, Gemma 8B - Efficient lightweight models",
+        models: models.filter(model => 
+          model.toLowerCase().includes('llama3.1_8b') || 
+          model.toLowerCase().includes('gemma8b')
+        )
+      },
+      {
+        label: "Medium Models", 
+        description: "Mistral Small, GPT-OSS 20B - Balanced performance and efficiency",
+        models: models.filter(model => 
+          model.toLowerCase().includes('mistralsmall') || 
+          model.toLowerCase().includes('gptoss20b')
+        )
+      },
+      {
+        label: "Large Models",
+        description: "GPT-5, DeepSeek R1 - High-performance flagship models",
+        models: models.filter(model => 
+          model.toLowerCase().includes('gpt5') || 
+          model.toLowerCase().includes('deepseekr1')
+        )
+      }
+    ]
+    
+    // Filter out empty groups and add any uncategorized models
+    const categorizedModels = groups.flatMap(g => g.models)
+    const uncategorizedModels = models.filter(m => !categorizedModels.includes(m))
+    
+    if (uncategorizedModels.length > 0) {
+      groups.push({
+        label: "Other Models",
+        description: "Additional models not in standard size categories",
+        models: uncategorizedModels
+      })
+    }
+    
+    return groups.filter(group => group.models.length > 0)
+  }
+  
+  const modelGroups = groupModelsBySize(models)
   // Filter data based on view mode and selected models
   const filteredData = (() => {
     // For subset view with specific models selected
@@ -167,6 +213,39 @@ const GlobalCharts = ({
               selectedMetric={metric}
               selectedModel="ALL"
             />
+          </div>
+        ))}
+      </div>
+
+      {/* Model Performance by Size Groups - All 3 Key Metrics */}
+      <div className="space-y-6">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+          Model Performance by Size Categories
+        </h2>
+        {keyMetrics.map(metric => (
+          <div key={`model-groups-${metric}`} className="space-y-4">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+              {METRIC_LABELS[metric]} by Model Size
+            </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+              {modelGroups.map((group, groupIndex) => (
+                <div key={`model-group-${metric}-${groupIndex}`} className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                  <h4 className="text-md font-medium text-gray-900 dark:text-gray-100 mb-1">
+                    {group.label}
+                  </h4>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-3">
+                    {group.description}
+                  </p>
+                  <ModelLineChart
+                    longData={filteredData}
+                    models={group.models}
+                    prompts={prompts}
+                    selectedMetric={metric}
+                    selectedModel="ALL"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
