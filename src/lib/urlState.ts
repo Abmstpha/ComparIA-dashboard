@@ -117,6 +117,14 @@ export function decodeUrlState(
   const viewMode = params.get('viewMode')
   if (viewMode && ['global', 'subset', 'model', 'prompt'].includes(viewMode)) {
     state.viewMode = viewMode as ViewMode
+    
+    // If viewMode is 'model' but no model selection was set, default to 'all' type with all models
+    if (viewMode === 'model' && !state.modelSelection) {
+      state.modelSelection = {
+        type: 'all',
+        models: availableModels
+      }
+    }
   }
   
   // Drill-down prompt
