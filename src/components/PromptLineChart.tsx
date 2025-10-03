@@ -160,6 +160,8 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
         name: METRIC_LABELS[selectedMetric],
         nameLocation: 'middle',
         nameGap: 50,
+        min: 0,
+        max: selectedMetric === 'quality' ? 5 : selectedMetric === 'latency_s' ? 25 : 40,
         nameTextStyle: {
           fontSize: 14,
           color: '#9ca3af',
@@ -169,7 +171,7 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
           fontSize: 11,
           color: '#9ca3af',
           fontWeight: 500,
-          formatter: (value: number) => value.toFixed(3)
+          formatter: (value: number) => value.toFixed(1)
         },
         axisLine: {
           lineStyle: {
