@@ -30,7 +30,7 @@ function App() {
         type: 'all',
         models: []
       },
-      viewMode: 'global',
+      viewMode: 'model',
       drilldownPrompt: null
     },
     isLoading: false,

@@ -121,7 +121,11 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
       },
       legend: {
         top: '8%',
-        type: 'scroll'
+        type: 'plain',
+        itemGap: 15,
+        textStyle: {
+          color: '#9ca3af'
+        }
       },
       grid: {
         left: '8%',
