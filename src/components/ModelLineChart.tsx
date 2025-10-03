@@ -67,36 +67,13 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
           shadowOffsetY: 2
         }
       })),
-      barWidth: '50%',
+      barWidth: '60%',
       label: {
         show: true,
         position: 'top' as const,
-        formatter: (params: any) => params.value !== null ? Number(params.value).toFixed(2) : 'N/A'
+        formatter: (params: any) => params.value !== null ? params.value.toFixed(3) : 'N/A'
       }
     }]
-
-    // Compute tight y-axis bounds and a nice interval so bars aren't overly tall
-    const validValues = modelAverages
-      .map(m => m.average)
-      .filter((v): v is number => v !== null && !isNaN(v))
-    const dataMin = validValues.length ? Math.min(...validValues) : 0
-    const dataMax = validValues.length ? Math.max(...validValues) : 1
-    const rawRange = Math.max(1e-9, dataMax - dataMin)
-    const padding = rawRange * 0.15
-    const yMin = Math.max(0, dataMin - padding)
-    const yMax = dataMax + padding
-
-    // Choose a "nice" interval close to range/4
-    const targetStep = rawRange / 4
-    const magnitude = Math.pow(10, Math.floor(Math.log10(targetStep || 1)))
-    const mantissa = targetStep / magnitude
-    let niceMantissa = 1
-    if (mantissa <= 1) niceMantissa = 1
-    else if (mantissa <= 2) niceMantissa = 2
-    else if (mantissa <= 2.5) niceMantissa = 2.5
-    else if (mantissa <= 5) niceMantissa = 5
-    else niceMantissa = 10
-    const interval = niceMantissa * magnitude
 
     const option: echarts.EChartsOption = {
       title: {
@@ -177,14 +154,8 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
           fontSize: 11,
           color: '#9ca3af',
           fontWeight: 500,
-          formatter: (value: number) => {
-            const range = yMax - yMin
-            return Number(value).toFixed(range < 3 ? 2 : 1)
-          }
+          formatter: (value: number) => value.toFixed(3)
         },
-        min: yMin,
-        max: yMax,
-        interval,
         axisLine: {
           lineStyle: {
             color: '#e2e8f0',
@@ -225,7 +196,7 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
   return (
     <div
       ref={chartRef}
-      className="w-full h-80"
+      className="w-full h-64"
     />
   )
 }
