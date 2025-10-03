@@ -271,7 +271,7 @@ const GlobalCharts = ({
             <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
               {METRIC_LABELS[metric]} Trends by Prompt Groups
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {promptGroups.map((group, groupIndex) => (
                 <div key={`trends-${metric}-group-${groupIndex}`} className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
                   <h4 className="text-md font-medium text-gray-900 dark:text-gray-100 mb-1">
