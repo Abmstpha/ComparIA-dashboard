@@ -1,7 +1,6 @@
 import type { LongRow, ModelId, MetricName, PromptId, ViewMode } from '../types'
 import { METRIC_LABELS } from '../types'
 import KpiCards from './KpiCards'
-import Heatmap from './Heatmap'
 import ModelLineChart from './ModelLineChart'
 import PromptLineChart from './PromptLineChart'
 
@@ -198,65 +197,6 @@ const GlobalCharts = ({
         <KpiCards data={filteredData} />
       </div>
 
-      {/* Modern Performance Heatmaps */}
-      <div className="space-y-8">
-        <div className="flex items-center gap-4">
-          <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center shadow-lg">
-            <span className="text-white text-lg">🔥</span>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-              Performance Heatmaps
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400">Visual patterns across prompt categories</p>
-          </div>
-        </div>
-        
-        {keyMetrics.map((metric, metricIndex) => (
-          <div key={`heatmap-${metric}`} className="space-y-6">
-            <div className="flex items-center gap-3">
-              <div className={`w-6 h-6 rounded-lg ${
-                metricIndex === 0 ? 'bg-gradient-to-r from-emerald-500 to-teal-500' :
-                metricIndex === 1 ? 'bg-gradient-to-r from-blue-500 to-cyan-500' :
-                'bg-gradient-to-r from-purple-500 to-pink-500'
-              }`}></div>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">
-                {METRIC_LABELS[metric]} Analysis
-              </h3>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-              {promptGroups.map((group, groupIndex) => (
-                <div key={`heatmap-${metric}-group-${groupIndex}`} className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-2xl border border-gray-200/60 dark:border-gray-700/60 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {group.label}
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                        {group.description}
-                      </p>
-                    </div>
-                    <div className={`w-3 h-3 rounded-full ${
-                      metricIndex === 0 ? 'bg-emerald-400' :
-                      metricIndex === 1 ? 'bg-blue-400' : 'bg-purple-400'
-                    } opacity-60`}></div>
-                  </div>
-                  
-                  <div className="rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700">
-                    <Heatmap
-                      longData={filteredData}
-                      models={filteredModels}
-                      prompts={group.prompts}
-                      selectedMetric={metric}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
 
 
 

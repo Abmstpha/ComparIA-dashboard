@@ -5,19 +5,16 @@ import { decodeUrlState, updateUrlState } from './lib/urlState'
 import { loadCSVData } from './lib/csvLoader'
 import ModelSelector from './components/ModelSelector'
 import GlobalCharts from './components/GlobalCharts'
-import ModelDetail from './components/ModelDetail'
 import PromptDrilldown from './components/PromptDrilldown'
 import './styles/modern.css'
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('darkMode') === 'true' ||
-        (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    }
-    return false
+    const saved = localStorage.getItem('darkMode')
+    return saved ? JSON.parse(saved) : false
   })
-
+  
+  const [sidebarVisible, setSidebarVisible] = useState(true)
   const [state, setState] = useState<AppState>({
     matrixData: [],
     longData: [],
@@ -230,8 +227,18 @@ function App() {
             </div>
           </div>
           <button
+            onClick={() => setSidebarVisible(!sidebarVisible)}
+            className="group relative p-4 rounded-2xl bg-gradient-to-br from-blue-100/80 to-indigo-100/80 dark:from-slate-800/80 dark:to-blue-900/80 hover:from-blue-200/80 hover:to-indigo-200/80 dark:hover:from-slate-700/80 dark:hover:to-blue-800/80 border border-white/20 dark:border-white/10 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 ml-3 flex-shrink-0"
+            title="Toggle sidebar"
+          >
+            <div className="text-xl group-hover:scale-110 transition-transform duration-300">
+              {sidebarVisible ? '◀️' : '▶️'}
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+          </button>
+          <button
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="group relative p-4 rounded-2xl bg-gradient-to-br from-yellow-100/80 to-orange-100/80 dark:from-slate-800/80 dark:to-blue-900/80 hover:from-yellow-200/80 hover:to-orange-200/80 dark:hover:from-slate-700/80 dark:hover:to-blue-800/80 border border-white/20 dark:border-white/10 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 ml-6 flex-shrink-0"
+            className="group relative p-4 rounded-2xl bg-gradient-to-br from-yellow-100/80 to-orange-100/80 dark:from-slate-800/80 dark:to-blue-900/80 hover:from-yellow-200/80 hover:to-orange-200/80 dark:hover:from-slate-700/80 dark:hover:to-blue-800/80 border border-white/20 dark:border-white/10 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 ml-3 flex-shrink-0"
             title="Toggle dark mode"
           >
             <div className="text-xl group-hover:scale-110 transition-transform duration-300">
@@ -244,7 +251,8 @@ function App() {
 
       <div className="flex flex-col lg:flex-row h-[calc(100vh-120px)]">
         {/* Ultra-Modern Sidebar */}
-        <aside className="relative overflow-hidden bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-6 lg:p-8 space-y-6 lg:space-y-8 lg:overflow-y-auto lg:w-96 w-full lg:h-full border-b lg:border-b-0 lg:border-r border-white/20 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)] lg:flex-shrink-0">
+        {sidebarVisible && (
+          <aside className="relative overflow-hidden bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl p-6 lg:p-8 space-y-6 lg:space-y-8 lg:overflow-y-auto lg:w-96 w-full lg:h-full border-b lg:border-b-0 lg:border-r border-white/20 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)] lg:flex-shrink-0 transition-all duration-300">
           {/* Animated Background */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute top-1/4 -left-4 w-20 h-20 bg-gradient-to-br from-blue-400/5 to-purple-400/5 rounded-full blur-2xl animate-pulse delay-500"></div>
@@ -273,6 +281,7 @@ function App() {
             onViewModeChange={handleViewModeChange}
           />
         </aside>
+        )}
 
         {/* Ultra-Modern Main Content */}
         <main className="relative flex-1 overflow-y-auto bg-gradient-to-br from-slate-50/50 via-blue-50/20 to-indigo-50/10 dark:from-slate-900/50 dark:via-slate-800/30 dark:to-blue-900/10 p-6 lg:p-10 space-y-8 lg:space-y-12 h-full">

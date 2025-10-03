@@ -82,7 +82,7 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
         textStyle: {
           fontSize: 20,
           fontWeight: 700,
-          color: '#1e293b'
+          color: '#9ca3af'
         }
       },
       tooltip: {
@@ -121,7 +121,7 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
         axisLabel: {
           rotate: 45,
           fontSize: 12,
-          color: '#64748b',
+          color: '#9ca3af',
           fontWeight: 500
         },
         axisLine: {
@@ -143,12 +143,12 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
         nameGap: 50,
         nameTextStyle: {
           fontSize: 14,
-          color: '#374151',
+          color: '#9ca3af',
           fontWeight: 600
         },
         axisLabel: {
           fontSize: 11,
-          color: '#64748b',
+          color: '#9ca3af',
           fontWeight: 500,
           formatter: (value: number) => value.toFixed(3)
         },
