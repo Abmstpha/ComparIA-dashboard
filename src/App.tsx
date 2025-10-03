@@ -6,6 +6,7 @@ import { loadCSVData } from './lib/csvLoader'
 import ModelSelector from './components/ModelSelector'
 import GlobalCharts from './components/GlobalCharts'
 import PromptDrilldown from './components/PromptDrilldown'
+import ModelDetail from './components/ModelDetail'
 import './styles/modern.css'
 
 function App() {
