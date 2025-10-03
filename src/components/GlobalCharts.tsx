@@ -134,7 +134,7 @@ const GlobalCharts = ({
   const getViewDescription = () => {
     switch (viewMode) {
       case 'global':
-        return 'Aggregated metrics across all models and prompts'
+        return 'Aggregated metrics across all models and prompts. Please use the left panel to filter and for a deep dive into different models'
       case 'subset':
         return `Comparing selected models: ${selectedModels.join(', ')}`
       default:

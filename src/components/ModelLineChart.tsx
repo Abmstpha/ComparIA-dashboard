@@ -196,7 +196,7 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
   return (
     <div
       ref={chartRef}
-      className="w-full h-[80vh]"
+      className="w-full h-80"
     />
   )
 }
