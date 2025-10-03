@@ -76,15 +76,6 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
     }]
 
     const option: echarts.EChartsOption = {
-      title: {
-        text: `${METRIC_LABELS[selectedMetric]} by Model`,
-        left: 'center',
-        textStyle: {
-          fontSize: 20,
-          fontWeight: 700,
-          color: '#9ca3af'
-        }
-      },
       tooltip: {
         trigger: 'item',
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
@@ -104,19 +95,11 @@ const ModelLineChart: React.FC<ModelLineChartProps> = ({
           return `<div style="font-weight: 600; margin-bottom: 6px; color: #3b82f6;">${modelName}</div><div style="font-weight: 600; color: #1e293b;">${METRIC_LABELS[selectedMetric]}: <span style="color: #059669;">${value !== null ? value.toFixed(3) : 'N/A'}</span></div>`
         }
       },
-      legend: {
-        top: '8%',
-        type: 'plain',
-        itemGap: 15,
-        textStyle: {
-          color: '#9ca3af'
-        }
-      },
       grid: {
-        left: '10%',
-        right: '10%',
-        bottom: '15%',
-        top: '20%',
+        left: '15%',
+        right: '5%',
+        bottom: '20%',
+        top: '5%',
         containLabel: true
       },
       xAxis: {

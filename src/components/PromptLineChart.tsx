@@ -71,15 +71,6 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
     })
 
     const option: echarts.EChartsOption = {
-      title: {
-        text: `${METRIC_LABELS[selectedMetric]} Across Prompts`,
-        left: 'center',
-        textStyle: {
-          fontSize: 20,
-          fontWeight: 700,
-          color: '#64748b'
-        }
-      },
       tooltip: {
         trigger: 'axis',
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
@@ -120,17 +111,18 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
         }
       },
       legend: {
-        top: '8%',
+        top: '2%',
         type: 'plain',
         itemGap: 15,
         textStyle: {
-          color: '#9ca3af'
+          color: '#9ca3af',
+          fontSize: 11
         }
       },
       grid: {
-        left: '8%',
-        right: '8%',
-        bottom: '12%',
+        left: '15%',
+        right: '5%',
+        bottom: '20%',
         top: '15%',
         containLabel: true
       },
