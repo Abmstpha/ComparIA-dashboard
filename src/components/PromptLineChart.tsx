@@ -153,7 +153,7 @@ const PromptLineChart: React.FC<PromptLineChartProps> = ({
         nameLocation: 'middle',
         nameGap: 50,
         min: 0,
-        max: selectedMetric === 'quality' ? 5 : selectedMetric === 'latency_s' ? 55 : 65,
+        max: selectedMetric === 'quality' ? 5 : selectedMetric === 'latency_s' ? 60 : 100,
         nameTextStyle: {
           fontSize: 14,
           color: '#9ca3af',
